@@ -68,7 +68,7 @@ class App extends React.Component{
   render(){
     const {modalActivo,personajes} = this.state
      const cards = personajes.map(p => this.renderCards(p))
-
+    
      let filteredPersonaje = this.state.personajes.filter((p) => {
        return p.name.toLowerCase().includes(this.state.searchPersonaje.toLowerCase())
      })
@@ -78,7 +78,7 @@ class App extends React.Component{
         <h1>Rick and Morty</h1>
         <InputSearch handleInput={this.handleInput}/>
         <div className="Cards-container">
-          {cards}
+           {cards}
         </div>
         {modalActivo ? (
           <div className="Modal" onClick={e => this.DesactivarModal(e)}>
