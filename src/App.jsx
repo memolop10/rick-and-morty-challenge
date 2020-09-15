@@ -75,7 +75,7 @@ class App extends React.Component{
   render(){
     const {modalActivo,personajesFiltrados} = this.state
     const cards = personajesFiltrados.map(character => {
-      return  (<CardCharacter key={character.id} name={character.name} image={character.image}/>)
+      return  (<CardCharacter key={character.id} name={character.name} image={character.image} clickHandler={this.ActivarModal.bind(this, character.id)}/>)
     })
 
   return ( 

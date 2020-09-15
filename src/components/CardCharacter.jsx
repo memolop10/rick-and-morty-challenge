@@ -3,9 +3,10 @@ import React, { Component } from "react";
 
 function CardCharacter(props){
     
-    const { name , image} = props
+    const { name , image , clickHandler} = props
     return(
-        <div className="Card">
+
+        <div className="Card" onClick={clickHandler}>
         <div className="Card-image">
           <figure>
             <img alt='lo que sea' src={image}/>
