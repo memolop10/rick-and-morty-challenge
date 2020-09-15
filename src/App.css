@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 figure{
   margin: 0;
 }
@@ -9,11 +13,11 @@ figure{
 .App-contenedor{
   background-color: #282c34;
   color: #ffff;
-  height: 100vh ;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: calc(10px + 2vmin);
+  height: 100%;
 }
 
 .Cards-container{
@@ -27,7 +31,7 @@ figure{
   border: 1px white solid;
   border-radius: 10px;
   max-width: 300px;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .Card-image figure img{
