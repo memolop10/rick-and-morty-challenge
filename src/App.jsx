@@ -1,4 +1,5 @@
 import React from 'react';
+import CardCharacter from './components/CardCharacter'
 import InputSearch from './components/InputSearch'
 import './App.css';
 import './lib/api';
@@ -11,15 +12,21 @@ class App extends React.Component{
       modalActivo:false,
       personajes: [],
       pSeleccionado:{},
-      searchPersonaje:''
+      searchPersonaje:'',
+      personajesFiltrados:[],
+
     }
+    this.onChangeInput = this.onChangeInput.bind(this)
+    
   }
+
 
     componentDidMount(){
       api.getAllCharacters()
         .then(results => {
           this.setState({
-            personajes:results
+            personajes:results,
+            personajesFiltrados:results
           })
         })
         .catch(e => console.error(e))
@@ -48,35 +55,34 @@ class App extends React.Component{
       })
     }
 
-  renderCards(p){
-    return(
-      <div key={p.id} className="Card" onClick={() => this.ActivarModal(p.id)}>
-        <div className="Card-image">
-          <figure>
-            <img alt='lo que sea' src={p.image}/>
-          </figure>
-        </div>
-      <div className="Card-description">
-        <div className="Card-name">
-          <h3>{p.name}</h3>
-        </div>
-      </div>
-    </div>
-    )
-  }
+    onChangeInput(value){
+      
+      if(!value){
+        this.setState({
+          personajesFiltrados:[...this.state.personajes]
+        })
+      }else{
+        let filteredPersonaje = this.state.personajes.filter((p) => {
+          return p.name.toLowerCase().includes(value.toLowerCase())
+        })
+        
+        this.setState({
+          personajesFiltrados:[...filteredPersonaje]
+        })
+      }
+    }
 
   render(){
-    const {modalActivo,personajes} = this.state
-     const cards = personajes.map(p => this.renderCards(p))
-    
-     let filteredPersonaje = this.state.personajes.filter((p) => {
-       return p.name.toLowerCase().includes(this.state.searchPersonaje.toLowerCase())
-     })
+    const {modalActivo,personajesFiltrados} = this.state
+    const cards = personajesFiltrados.map(character => {
+      return  (<CardCharacter key={character.id} name={character.name} image={character.image}/>)
+    })
+
   return ( 
     <>
       <div className="App-contenedor">
         <h1>Rick and Morty</h1>
-        <InputSearch handleInput={this.handleInput}/>
+        <InputSearch onChangeInput={this.onChangeInput}/>
         <div className="Cards-container">
            {cards}
         </div>
